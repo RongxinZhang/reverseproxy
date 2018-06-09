@@ -71,7 +71,6 @@ func NewReverseProxy(target *url.URL) *ReverseProxy {
 	director := func(req *http.Request) {
 		req.URL.Scheme = target.Scheme
 		req.URL.Host = target.Host
-		req.URL.Path = singleJoiningSlash(target.Path, req.URL.Path)
 
 		// If Host is empty, the Request.Write method uses
 		// the value of URL.Host.
@@ -84,7 +83,7 @@ func NewReverseProxy(target *url.URL) *ReverseProxy {
 		}
 
 		if _, ok := req.Header["User-Agent"]; !ok {
-			req.Header.Set("User-Agent", "")
+			req.Header.Set("User-Agent", "Sia-Agent")
 		}
 	}
 
